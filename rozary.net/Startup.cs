@@ -26,6 +26,14 @@ namespace rozary.net
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("OrareProMe", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "OrareProMe API",
+                    Version = "1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +46,8 @@ namespace rozary.net
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -46,6 +56,7 @@ namespace rozary.net
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
