@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "rozary.net": {
+    "Rosary": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,8 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Rosary.Database;
 
-namespace rozary.net
+namespace Rosary
 {
     public class Startup
     {
@@ -31,9 +33,11 @@ namespace rozary.net
                 setupAction.SwaggerDoc("OrareProMe", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Title = "OrareProMe API",
-                    Version = "1"
+                    Version = "v1"
                 });
             });
+            services.AddSingleton<IntentionRepository>();
+            services.AddMediatR(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +51,11 @@ namespace rozary.net
             app.UseHttpsRedirection();
 
             app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/OrareProMe/swagger.json", "OrareProMe API");
+            });
 
             app.UseRouting();
 

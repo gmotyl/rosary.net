@@ -1,6 +1,6 @@
 using System;
 
-namespace rozary.net
+namespace Rosary
 {
     public class WeatherForecast
     {

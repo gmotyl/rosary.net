@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace rozary.net.Controllers
+namespace Rosary.Controllers
 {
     [ApiController]
     [Route("[controller]")]
