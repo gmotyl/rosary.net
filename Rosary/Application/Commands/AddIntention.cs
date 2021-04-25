@@ -2,8 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Rosary.Database;
 using Rosary.Domain;
+using Rosary.Infrastructure;
 
 namespace Rosary.Commands
 {
@@ -11,8 +11,8 @@ namespace Rosary.Commands
     {
         public class Command : IRequest<int>
         {
-            public string Title { get; set;} 
-            public string Description {get; set;}
+            public string Title { get; set; }
+            public string Description { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, int>

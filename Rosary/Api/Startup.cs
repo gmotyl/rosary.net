@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Rosary.Database;
+using Rosary.Application;
+using Rosary.Infrastructure;
 
 namespace Rosary
 {
@@ -36,8 +37,9 @@ namespace Rosary
                     Version = "v1"
                 });
             });
-            services.AddSingleton<IntentionRepository>();
             services.AddMediatR(typeof(Startup).Assembly);
+            services.AddApplication();
+            services.AddInfrastructure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

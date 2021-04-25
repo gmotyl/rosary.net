@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Rosary.Database;
+using Rosary.Infrastructure;
 
 namespace Rosary.Queries
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Rosary.Domain;
 
-namespace Rosary.Database
+namespace Rosary.Infrastructure
 {
     public class IntentionRepository
     {

@@ -10,7 +10,7 @@ namespace Rosary.Domain
 
         public string Description { get; set; }
 
-        private List<Rosary> _rosaries;
+        private List<Rosary> Rosaries;
 
         public Intention(int Id, string Title)
         {
