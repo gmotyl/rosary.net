@@ -22,9 +22,9 @@
     <Content Include="Application\Queries\GetIntentionById.cs" />
     <Content Include="Application\Models\CQRSResponse.cs" />
     <Content Include="Application\Models\ValidationResult.cs" />
-    <Content Include="Api\Startup.cs" />
-    <Content Include="Api\Program.cs" />
     <Content Include="Application\DependencyInjection.cs" />
     <Content Include="Infrastructure\DependencyInjection.cs" />
+    <Content Include="Api\DependencyInjection.cs" />
+    <Content Include="Startup.cs" />
   </ItemGroup>
 </Project>

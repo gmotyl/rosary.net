@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Rosary.Api;
 using Rosary.Application;
 using Rosary.Infrastructure;
 
@@ -29,15 +29,7 @@ namespace Rosary
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(setupAction =>
-            {
-                setupAction.SwaggerDoc("OrareProMe", new Microsoft.OpenApi.Models.OpenApiInfo()
-                {
-                    Title = "OrareProMe API",
-                    Version = "v1"
-                });
-            });
-            services.AddMediatR(typeof(Startup).Assembly);
+            services.AddApi();
             services.AddApplication();
             services.AddInfrastructure();
         }
