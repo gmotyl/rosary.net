@@ -24,14 +24,12 @@ namespace Rosary.Controllers
             return response == null ? NotFound() : Ok(response);
         }
 
-        // [HttpPost("/intentions")]
-        // public async Task<IActionResult> AddIntention(AddIntention.Command command) => Ok(await mediator.Send(command));
-        [HttpPost("")]
+        [HttpPost("/intentions")]
         public async Task<ActionResult<AddIntention.Command>> AddIntention(AddIntention.Command command)
         {
             var response = await mediator.Send(command);
-            return Ok(response);;
+            return Ok(response); ;
         }
-        
+
     }
 }
