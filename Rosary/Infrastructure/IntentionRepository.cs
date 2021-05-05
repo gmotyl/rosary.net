@@ -1,17 +1,28 @@
 
 using System.Collections.Generic;
 using Rosary.Domain;
+using Rosary.Infrastructure.Database;
 
 namespace Rosary.Infrastructure
 {
     public class IntentionRepository
     {
+
+        private static RosaryContext _context = new RosaryContext();
+
+        public void Add(Intention intention)
+        {
+            _context.Database.EnsureCreated();
+            _context.Intentions.Add(intention);
+            _context.SaveChanges();
+        }
+
         public List<Intention> Intentions { get; } = new List<Intention>
         {
-            new Intention(1, "intencja 1"),
-            new Intention(2, "intencja 2"),
-            new Intention(3, "intencja 3"),
-            new Intention(4, "intencja 4")
+            new Intention("intencja 1"),
+            new Intention("intencja 2"),
+            new Intention("intencja 3"),
+            new Intention("intencja 4")
         };
     }
 }

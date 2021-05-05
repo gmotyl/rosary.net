@@ -27,7 +27,7 @@ namespace Rosary.Commands
 
             public async Task<int> Handle(Command request, CancellationToken cancellationToken)
             {
-                repository.Intentions.Add(new Intention(9, request.Title));
+                repository.Add(new Intention(request.Title));
                 return 9;
             }
         }
