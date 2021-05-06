@@ -9,13 +9,13 @@ namespace Rosary.Commands
 {
     public class AddIntention
     {
-        public class Command : IRequest<int>
+        public class Command : IRequest<Guid>
         {
             public string Title { get; set; }
             public string Description { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, int>
+        public class Handler : IRequestHandler<Command, Guid>
         {
 
             private readonly IntentionRepository repository;
@@ -25,12 +25,12 @@ namespace Rosary.Commands
                 this.repository = repository;
             }
 
-            public async Task<int> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
                 Intention intention = new Intention(request.Title);
                 repository.Add(intention);
 
-                return intention._id;
+                return intention.Id;
             }
         }
 

@@ -1,11 +1,13 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Rosary.Domain
 {
     public class Rosary
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public Intention Intention { get; set; }
 

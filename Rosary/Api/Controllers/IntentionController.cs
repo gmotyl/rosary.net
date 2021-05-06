@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace Rosary.Controllers
         }
 
         [HttpGet("/intentions/{id}")]
-        public async Task<IActionResult> GetIntentionById(int id)
+        public async Task<IActionResult> GetIntentionById(Guid id)
         {
             var response = await mediator.Send(new GetIntentionById.Query(id));
 

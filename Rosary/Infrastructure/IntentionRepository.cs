@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Rosary.Domain;
 using Rosary.Infrastructure.Database;
@@ -15,6 +16,11 @@ namespace Rosary.Infrastructure
             _context.Database.EnsureCreated();
             _context.Intentions.Add(intention);
             _context.SaveChanges();
+        }
+
+        public Intention Get(Guid intentionId)
+        {
+            return _context.Intentions.Find(intentionId);
         }
 
         public List<Intention> Intentions { get; } = new List<Intention>

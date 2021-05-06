@@ -15,9 +15,9 @@ namespace Rosary.Queries
 
         public class Query : IRequest<Response>
         {
-            public int Id { get; }
+            public Guid Id { get; }
 
-            public Query(int id)
+            public Query(Guid id)
             {
                 Id = id;
             }
@@ -36,8 +36,8 @@ namespace Rosary.Queries
 
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var intention = repository.Intentions.FirstOrDefault(x => x._id == request.Id);
-                return intention == null ? null : new Response(intention._id, intention.Title, intention.Description);
+                var intention = repository.Get(request.Id);
+                return intention == null ? null : new Response(intention.Id, intention.Title, intention.Description);
             }
         }
 
@@ -45,11 +45,11 @@ namespace Rosary.Queries
         // The data we want to return
         public class Response
         {
-            public int Id { get; }
+            public Guid Id { get; }
             public string Title { get; set; }
             public string Description { get; set; }
 
-            public Response(int id, string title, string description)
+            public Response(Guid id, string title, string description)
             {
                 Id = id;
                 Title = title;

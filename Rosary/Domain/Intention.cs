@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +8,7 @@ namespace Rosary.Domain
     {
 
         [Key]
-        public int _id { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 

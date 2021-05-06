@@ -20,11 +20,11 @@ namespace Rosary.Infrastructure
         public void ShouldAddIntention()
         {
             var repository = new IntentionRepository();
-            var intention = new Intention(99, "test intention");
+            var intention = new Intention("test intention");
 
             repository.Intentions.Add(intention);
 
-            var expectedIntention = repository.Intentions.First(intention => intention._id == 99);
+            var expectedIntention = repository.Intentions.First(intention => intention.Title == "test intention");
 
             Assert.IsType<Intention>(expectedIntention);
             Assert.Equal<Intention>(intention, expectedIntention);
