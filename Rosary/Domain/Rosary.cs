@@ -11,5 +11,7 @@ namespace Rosary.Domain
 
         public Intention Intention { get; set; }
 
+        private Prayer[] Prayers { get; set; }
+
     }
 }

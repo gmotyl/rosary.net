@@ -16,6 +16,8 @@ namespace Rosary.Domain
 
         private List<Rosary> Rosaries;
 
+        public User Owner { get; set; }
+
         public Intention()
         {
             this.Title = "title";
@@ -24,6 +26,11 @@ namespace Rosary.Domain
         public Intention(string Title)
         {
             this.Title = Title;
+        }
+
+        public Prayer ReservePrayer()
+        {
+            return new Prayer();
         }
     }
 }
