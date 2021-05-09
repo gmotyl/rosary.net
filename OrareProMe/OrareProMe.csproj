@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+    <Content Include="Program.cs" />
+    <Content Include="Controllers\WeatherForecastController.cs" />
+    <Content Include="Domain\Intention.cs" />
+    <Content Include="Database\IntentionRepository.cs" />
+    <Content Include="Controllers\IntentionController.cs" />
+    <Content Include="Application\Commands\AddIntention.cs" />
+    <Content Include="Application\Queries\GetIntentionById.cs" />
+    <Content Include="Application\Models\CQRSResponse.cs" />
+    <Content Include="Application\Models\ValidationResult.cs" />
+    <Content Include="Application\DependencyInjection.cs" />
+    <Content Include="Infrastructure\DependencyInjection.cs" />
+    <Content Include="Api\DependencyInjection.cs" />
+    <Content Include="Startup.cs" />
+  </ItemGroup>
+</Project>

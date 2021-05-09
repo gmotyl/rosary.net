@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Rosary.Domain;
+using OrareProMe.Domain;
 using Xunit;
 
-namespace Rosary.Infrastructure
+namespace OrareProMe.Infrastructure
 {
     public class IntentionRepositoryTest
     {

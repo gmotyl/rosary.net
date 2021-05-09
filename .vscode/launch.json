@@ -10,9 +10,9 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/Rosary/bin/Debug/netcoreapp3.1/Rosary.dll",
+      "program": "${workspaceFolder}/OrareProMe/bin/Debug/netcoreapp3.1/OrareProMe.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Rosary",
+      "cwd": "${workspaceFolder}/OrareProMe",
       "stopAtEntry": false,
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
       "serverReadyAction": {
