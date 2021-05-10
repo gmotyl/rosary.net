@@ -11,12 +11,7 @@ namespace OrareProMe.Infrastructure
     public class IntentionRepository
     {
 
-        private static IApplicationDbContext _context;
-
-        public IntentionRepository(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private static IApplicationDbContext _context = new MysqlContext();
 
         public void Add(Intention intention)
         {

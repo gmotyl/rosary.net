@@ -25,12 +25,12 @@ namespace OrareProMe.Commands
                 this.repository = repository;
             }
 
-            public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
+            public Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
                 Intention intention = new Intention(request.Title);
                 repository.Add(intention);
 
-                return intention.Id;
+                return Task.FromResult(intention.Id);
             }
         }
 

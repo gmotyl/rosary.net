@@ -8,7 +8,6 @@ namespace OrareProMe.Infrastructure
         {
 
             services
-                .AddDbContext()
                 .AddSingleton<IntentionRepository>();
 
             return services;
