@@ -31,6 +31,13 @@ namespace OrareProMe.Infrastructure
             return _context.Rosaries.Where(r => r.Id == intentionId).ToList();
         }
 
+        public void DeleteIntentionById(Guid intentionId)
+        {
+            var intention = this.GetById(intentionId);
+            _context.Intentions.Remove(intention);
+            _context.SaveChanges();
+        }
+
         public List<Intention> Intentions { get; } = new List<Intention>
         {
             new Intention("intencja 1"),

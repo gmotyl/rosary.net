@@ -2,24 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrareProMe.Infrastructure.Database;
 
 namespace OrareProMe.Migrations
 {
     [DbContext(typeof(MysqlContext))]
-    [Migration("20210507064955_entities")]
-    partial class entities
+    partial class MysqlContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.5");
 
-            modelBuilder.Entity("Rosary.Domain.Intention", b =>
+            modelBuilder.Entity("OrareProMe.Domain.Intention", b =>
                 {
                     b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,13 +39,31 @@ namespace OrareProMe.Migrations
                     b.ToTable("Intentions");
                 });
 
-            modelBuilder.Entity("Rosary.Domain.Rosary", b =>
+            modelBuilder.Entity("OrareProMe.Domain.Prayer", b =>
+                {
+                    b.Property<byte[]>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<byte[]>("RosaryId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RosaryId");
+
+                    b.ToTable("Prayers");
+                });
+
+            modelBuilder.Entity("OrareProMe.Domain.Rosary", b =>
                 {
                     b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varbinary(16)");
 
                     b.Property<byte[]>("IntentionId")
+                        .IsRequired()
                         .HasColumnType("varbinary(16)");
 
                     b.HasKey("Id");
@@ -57,7 +73,7 @@ namespace OrareProMe.Migrations
                     b.ToTable("Rosaries");
                 });
 
-            modelBuilder.Entity("Rosary.Domain.User", b =>
+            modelBuilder.Entity("OrareProMe.Domain.User", b =>
                 {
                     b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,28 +87,41 @@ namespace OrareProMe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Rosary.Domain.Intention", b =>
+            modelBuilder.Entity("OrareProMe.Domain.Intention", b =>
                 {
-                    b.HasOne("Rosary.Domain.User", "Owner")
+                    b.HasOne("OrareProMe.Domain.User", "Owner")
                         .WithMany("Intentions")
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Rosary.Domain.Rosary", b =>
+            modelBuilder.Entity("OrareProMe.Domain.Prayer", b =>
                 {
-                    b.HasOne("Rosary.Domain.Intention", "Intention")
+                    b.HasOne("OrareProMe.Domain.Rosary", "Rosary")
                         .WithMany()
-                        .HasForeignKey("IntentionId");
+                        .HasForeignKey("RosaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rosary");
+                });
+
+            modelBuilder.Entity("OrareProMe.Domain.Rosary", b =>
+                {
+                    b.HasOne("OrareProMe.Domain.Intention", "Intention")
+                        .WithMany()
+                        .HasForeignKey("IntentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Intention");
                 });
 
-            modelBuilder.Entity("Rosary.Domain.User", b =>
+            modelBuilder.Entity("OrareProMe.Domain.User", b =>
                 {
                     b.Navigation("Intentions");
                 });
