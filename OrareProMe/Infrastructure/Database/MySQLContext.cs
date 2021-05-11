@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using OrareProMe.Domain;
 
 namespace OrareProMe.Infrastructure.Database
@@ -14,12 +13,10 @@ namespace OrareProMe.Infrastructure.Database
         public DbSet<Domain.User> Users { get; set; }
         public DbSet<Domain.Prayer> Prayers { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public MysqlContext(DbContextOptions<MysqlContext> options) : base(options)
         {
-            optionsBuilder
-                .UseMySQL("Server=localhost;Port=3306;database=rosary;user=gomes;password=rosary")
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging();
+
         }
+
     }
 }
