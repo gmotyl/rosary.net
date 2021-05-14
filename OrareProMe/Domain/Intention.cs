@@ -9,7 +9,8 @@ namespace OrareProMe.Domain
     {
 
         [Key]
-        public Guid Id { get; private set; }
+        public long Id { get; private set; }
+        public Guid ExternalId { get; private set; }
 
         public string Title { get; private set; }
 

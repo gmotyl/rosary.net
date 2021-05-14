@@ -8,7 +8,8 @@ namespace OrareProMe.Domain
     public class Rosary
     {
         [Key]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
+        public Guid ExternalId { get; set; }
 
         public Intention Intention { get; set; }
 

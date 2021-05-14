@@ -37,7 +37,7 @@ namespace OrareProMe.Queries
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
                 var intention = await Task.Run(() => repository.GetById(request.Id));
-                return intention == null ? null : new Response(intention.Id, intention.Title, intention.Description);
+                return intention == null ? null : new Response(intention.ExternalId, intention.Title, intention.Description);
             }
         }
 

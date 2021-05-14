@@ -30,7 +30,7 @@ namespace OrareProMe.Commands
                 Intention intention = new Intention(request.Title, request.Description, new User());
                 repository.Add(intention);
 
-                return Task.FromResult(intention.Id);
+                return Task.FromResult(intention.ExternalId);
             }
         }
 

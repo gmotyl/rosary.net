@@ -47,23 +47,17 @@ namespace OrareProMe.Infrastructure.Database
             }
         }
 
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     modelBuilder.Entity<Intention>(x =>
-        //     {
-        //         x.ToTable("Intention").HasKey(k => k.Id);
-        //         x.Property(p => p.Id);
-        //         x.Property(p => p.Description);
-        //         x.HasOne(p => p.Owner).WithMany();
-        //         x.HasMany<Rosary>(p => p.)
-        //     });
-        //     modelBuilder.Entity<Course>(x =>
-        //     {
-        //         x.ToTable("Course").HasKey(k => k.Id);
-        //         x.Property(p => p.Id).HasColumnName("CourseID");
-        //         x.Property(p => p.Name);
-        //     });
-        // }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Intention>()
+                .HasIndex(_ => _.ExternalId);
+            modelBuilder.Entity<Rosary>()
+                .HasIndex(_ => _.ExternalId);
+            modelBuilder.Entity<Prayer>()
+                .HasIndex(_ => _.ExternalId);
+            modelBuilder.Entity<User>()
+                .HasIndex(_ => _.ExternalId);
+        }
 
     }
 }

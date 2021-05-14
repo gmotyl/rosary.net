@@ -31,7 +31,7 @@ namespace OrareProMe.Infrastructure
         }
 
 
-        public List<Rosary> GetRosariesByIntentionId(Guid intentionId)
+        public List<Rosary> GetRosariesByIntentionId(long intentionId)
         {
             return _context.Rosaries.Where(r => r.Id == intentionId).ToList();
         }

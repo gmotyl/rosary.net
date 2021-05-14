@@ -19,20 +19,26 @@ namespace OrareProMe.Migrations
 
             modelBuilder.Entity("OrareProMe.Domain.Intention", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("OwnerId")
+                    b.Property<byte[]>("ExternalId")
+                        .IsRequired()
                         .HasColumnType("varbinary(16)");
+
+                    b.Property<long?>("OwnerId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
 
                     b.HasIndex("OwnerId");
 
@@ -41,15 +47,20 @@ namespace OrareProMe.Migrations
 
             modelBuilder.Entity("OrareProMe.Domain.Prayer", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("bigint");
 
-                    b.Property<byte[]>("RosaryId")
+                    b.Property<byte[]>("ExternalId")
                         .IsRequired()
                         .HasColumnType("varbinary(16)");
 
+                    b.Property<long?>("RosaryId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
 
                     b.HasIndex("RosaryId");
 
@@ -58,15 +69,20 @@ namespace OrareProMe.Migrations
 
             modelBuilder.Entity("OrareProMe.Domain.Rosary", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("bigint");
 
-                    b.Property<byte[]>("IntentionId")
+                    b.Property<byte[]>("ExternalId")
                         .IsRequired()
                         .HasColumnType("varbinary(16)");
 
+                    b.Property<long?>("IntentionId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
 
                     b.HasIndex("IntentionId");
 
@@ -75,17 +91,23 @@ namespace OrareProMe.Migrations
 
             modelBuilder.Entity("OrareProMe.Domain.User", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varbinary(16)");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
 
                     b.ToTable("Users");
                 });
@@ -102,10 +124,8 @@ namespace OrareProMe.Migrations
             modelBuilder.Entity("OrareProMe.Domain.Prayer", b =>
                 {
                     b.HasOne("OrareProMe.Domain.Rosary", "Rosary")
-                        .WithMany()
-                        .HasForeignKey("RosaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Prayers")
+                        .HasForeignKey("RosaryId");
 
                     b.Navigation("Rosary");
                 });
@@ -113,12 +133,20 @@ namespace OrareProMe.Migrations
             modelBuilder.Entity("OrareProMe.Domain.Rosary", b =>
                 {
                     b.HasOne("OrareProMe.Domain.Intention", "Intention")
-                        .WithMany()
-                        .HasForeignKey("IntentionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Rosaries")
+                        .HasForeignKey("IntentionId");
 
                     b.Navigation("Intention");
+                });
+
+            modelBuilder.Entity("OrareProMe.Domain.Intention", b =>
+                {
+                    b.Navigation("Rosaries");
+                });
+
+            modelBuilder.Entity("OrareProMe.Domain.Rosary", b =>
+                {
+                    b.Navigation("Prayers");
                 });
 
             modelBuilder.Entity("OrareProMe.Domain.User", b =>

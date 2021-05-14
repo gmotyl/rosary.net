@@ -4,10 +4,9 @@ namespace OrareProMe.Domain
 {
     public class Prayer
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
+        public Guid ExternalId { get; set; }
         public Rosary Rosary { get; set; }
-
-        public Guid RosaryId { get; set; }
 
         private DateTime Date { get; set; }
 

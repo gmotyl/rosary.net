@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace OrareProMe.Migrations
 {
@@ -11,7 +12,9 @@ namespace OrareProMe.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
@@ -24,10 +27,12 @@ namespace OrareProMe.Migrations
                 name: "Intentions",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    OwnerId = table.Column<byte[]>(type: "varbinary(16)", nullable: true)
+                    OwnerId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,8 +49,10 @@ namespace OrareProMe.Migrations
                 name: "Rosaries",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
-                    IntentionId = table.Column<byte[]>(type: "varbinary(16)", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    IntentionId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,15 +62,17 @@ namespace OrareProMe.Migrations
                         column: x => x.IntentionId,
                         principalTable: "Intentions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Prayers",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
-                    RosaryId = table.Column<byte[]>(type: "varbinary(16)", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ExternalId = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    RosaryId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,8 +82,13 @@ namespace OrareProMe.Migrations
                         column: x => x.RosaryId,
                         principalTable: "Rosaries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Intentions_ExternalId",
+                table: "Intentions",
+                column: "ExternalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Intentions_OwnerId",
@@ -82,14 +96,29 @@ namespace OrareProMe.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prayers_ExternalId",
+                table: "Prayers",
+                column: "ExternalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Prayers_RosaryId",
                 table: "Prayers",
                 column: "RosaryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rosaries_ExternalId",
+                table: "Rosaries",
+                column: "ExternalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rosaries_IntentionId",
                 table: "Rosaries",
                 column: "IntentionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_ExternalId",
+                table: "Users",
+                column: "ExternalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
