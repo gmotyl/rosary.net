@@ -11,9 +11,9 @@ namespace OrareProMe.Domain
         public long Id { get; set; }
         public Guid ExternalId { get; set; }
 
-        public Intention Intention { get; set; }
+        public virtual Intention Intention { get; set; }
 
-        public List<Prayer> Prayers { get; set; }
+        public virtual List<Prayer> Prayers { get; set; }
 
         public Rosary()
         {

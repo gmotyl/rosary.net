@@ -16,9 +16,9 @@ namespace OrareProMe.Domain
 
         public string Description { get; private set; }
 
-        public List<Rosary> Rosaries { get; private set; } = new List<Rosary>();
+        public virtual List<Rosary> Rosaries { get; private set; } = new List<Rosary>();
 
-        public User Owner { get; private set; }
+        public virtual User Owner { get; private set; }
 
         public Intention()
         {

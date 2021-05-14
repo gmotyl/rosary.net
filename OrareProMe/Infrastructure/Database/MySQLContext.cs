@@ -37,7 +37,9 @@ namespace OrareProMe.Infrastructure.Database
                     .AddConsole();
             });
 
-            optionsBuilder.UseMySQL(_connectionString);
+            optionsBuilder
+                .UseMySQL(_connectionString)
+                .UseLazyLoadingProxies();
 
             if (_useConsoleLogger)
             {

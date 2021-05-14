@@ -14,7 +14,7 @@ namespace OrareProMe.Domain
 
         private string Password { get; set; }
 
-        public List<Intention> Intentions { get; set; }
+        public virtual List<Intention> Intentions { get; set; }
 
     }
 }

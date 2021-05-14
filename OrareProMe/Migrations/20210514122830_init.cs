@@ -72,7 +72,8 @@ namespace OrareProMe.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     ExternalId = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
-                    RosaryId = table.Column<long>(type: "bigint", nullable: true)
+                    RosaryId = table.Column<long>(type: "bigint", nullable: true),
+                    UserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,6 +82,12 @@ namespace OrareProMe.Migrations
                         name: "FK_Prayers_Rosaries_RosaryId",
                         column: x => x.RosaryId,
                         principalTable: "Rosaries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Prayers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -104,6 +111,11 @@ namespace OrareProMe.Migrations
                 name: "IX_Prayers_RosaryId",
                 table: "Prayers",
                 column: "RosaryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prayers_UserId",
+                table: "Prayers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rosaries_ExternalId",
