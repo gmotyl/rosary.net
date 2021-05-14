@@ -7,6 +7,7 @@ using OrareProMe.Queries;
 
 namespace OrareProMe.Controllers
 {
+    [Route("v1/intentions")]
     [ApiController]
     public class IntentionController : ControllerBase
     {
@@ -17,7 +18,7 @@ namespace OrareProMe.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet("/intentions/{id}")]
+        [HttpGet("/{id}")]
         public async Task<IActionResult> GetIntentionById(Guid id)
         {
             var response = await mediator.Send(new GetIntentionById.Query(id));
@@ -25,12 +26,14 @@ namespace OrareProMe.Controllers
             return response == null ? NotFound() : Ok(response);
         }
 
-        [HttpPost("/intentions")]
+        [HttpPost("/")]
         public async Task<ActionResult<AddIntention.Command>> AddIntention(AddIntention.Command command)
         {
             var response = await mediator.Send(command);
             return Ok(response); ;
         }
+
+
 
     }
 }

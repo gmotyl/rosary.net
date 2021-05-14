@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OrareProMe.Infrastructure.Database;
 
@@ -8,12 +7,8 @@ namespace OrareProMe.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-
-            services.AddDbContext<IApplicationDbContext, MysqlContext>(opt =>
-                    opt.UseMySQL("Server=localhost;Port=3306;database=rosary;user=gomes;password=rosary")
-                    .EnableSensitiveDataLogging()
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-                );
+            string connectionString = "Server=localhost;Port=3306;database=rosary;user=gomes;password=rosary";
+            services.AddScoped<IApplicationDbContext, MysqlContext>(_ => new MysqlContext(connectionString, true));
             services.AddTransient<IntentionRepository>();
 
             return services;
