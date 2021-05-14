@@ -11,9 +11,11 @@ namespace OrareProMe.Domain
         public Guid Id { get; set; }
 
         public Intention Intention { get; set; }
-        public Guid IntentionId { get; set; }
 
-        private List<Prayer> Prayers { get; set; }
+        public List<Prayer> Prayers { get; set; }
 
+        public Rosary()
+        {
+        }
     }
 }

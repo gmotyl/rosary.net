@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Net.Http.Headers;
 
 namespace OrareProMe.Domain
 {
@@ -8,24 +9,31 @@ namespace OrareProMe.Domain
     {
 
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
 
-        public string Title { get; set; }
+        public string Title { get; private set; }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
-        private List<Rosary> Rosaries;
+        public List<Rosary> Rosaries { get; private set; } = new List<Rosary>();
 
-        public User Owner { get; set; }
+        public User Owner { get; private set; }
 
         public Intention()
         {
             this.Title = "title";
         }
 
-        public Intention(string Title)
+        public Intention(string title, string description, User owner)
         {
-            this.Title = Title;
+            this.Title = title;
+            this.Description = description;
+            this.Owner = owner;
+
+            if (this.Rosaries.Count == 0)
+            {
+                this.Rosaries.Add(new Rosary());
+            }
         }
 
         public Prayer ReservePrayer()

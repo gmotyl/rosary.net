@@ -7,8 +7,8 @@ namespace OrareProMe.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            string connectionString = "Server=localhost;Port=3306;database=rosary;user=gomes;password=rosary";
-            services.AddScoped<IApplicationDbContext, MysqlContext>(_ => new MysqlContext(connectionString, true));
+            var contextFactory = new MySQLContextFactory();
+            services.AddScoped<IApplicationDbContext, MysqlContext>(_ => contextFactory.CreateDbContext(null));
             services.AddTransient<IntentionRepository>();
 
             return services;

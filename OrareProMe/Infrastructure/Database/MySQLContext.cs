@@ -23,6 +23,10 @@ namespace OrareProMe.Infrastructure.Database
             _useConsoleLogger = useConsoleLogger;
         }
 
+        protected MysqlContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
@@ -42,6 +46,24 @@ namespace OrareProMe.Infrastructure.Database
                     .EnableSensitiveDataLogging();
             }
         }
+
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     modelBuilder.Entity<Intention>(x =>
+        //     {
+        //         x.ToTable("Intention").HasKey(k => k.Id);
+        //         x.Property(p => p.Id);
+        //         x.Property(p => p.Description);
+        //         x.HasOne(p => p.Owner).WithMany();
+        //         x.HasMany<Rosary>(p => p.)
+        //     });
+        //     modelBuilder.Entity<Course>(x =>
+        //     {
+        //         x.ToTable("Course").HasKey(k => k.Id);
+        //         x.Property(p => p.Id).HasColumnName("CourseID");
+        //         x.Property(p => p.Name);
+        //     });
+        // }
 
     }
 }

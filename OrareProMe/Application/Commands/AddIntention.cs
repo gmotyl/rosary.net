@@ -27,7 +27,7 @@ namespace OrareProMe.Commands
 
             public Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                Intention intention = new Intention(request.Title);
+                Intention intention = new Intention(request.Title, request.Description, new User());
                 repository.Add(intention);
 
                 return Task.FromResult(intention.Id);
