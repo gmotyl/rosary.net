@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using OrareProMe.Domain;
+using OrareProMe.Domain.Intention;
 using OrareProMe.Infrastructure;
 
 namespace OrareProMe.Commands
@@ -27,7 +28,7 @@ namespace OrareProMe.Commands
 
             public Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                Intention intention = new Intention(request.Title, request.Description, new User());
+                IntentionAgregate intention = new IntentionAgregate(request.Title, request.Description, new User());
                 repository.Add(intention);
 
                 return Task.FromResult(intention.ExternalId);

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+using OrareProMe.Domain.Intention;
 
 namespace OrareProMe.Domain
 {
@@ -14,7 +14,7 @@ namespace OrareProMe.Domain
 
         private string Password { get; set; }
 
-        public virtual List<Intention> Intentions { get; set; }
+        public virtual List<IntentionAgregate> Intentions { get; set; }
 
     }
 }

@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Linq.Expressions;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.Net.Http.Headers;
+using OrareProMe.Domain.Specification;
 
-namespace OrareProMe.Domain
+namespace OrareProMe.Domain.Intention
 {
-    public class Intention
+    public class IntentionAgregate
     {
 
         [Key]
@@ -20,12 +24,11 @@ namespace OrareProMe.Domain
 
         public virtual User Owner { get; private set; }
 
-        public Intention()
+        public IntentionAgregate()
         {
-            this.Title = "title";
         }
 
-        public Intention(string title, string description, User owner)
+        public IntentionAgregate(string title, string description, User owner)
         {
             this.Title = title;
             this.Description = description;
@@ -39,7 +42,10 @@ namespace OrareProMe.Domain
 
         public Prayer ReservePrayer()
         {
-            return new Prayer();
+            var rosarySpec = new RosaryHasAviablePrayers();
+            var rosary = Rosaries.First(rosarySpec.IsSatisfiedBy);
+
+            return rosary.NextPrayer();
         }
     }
 }

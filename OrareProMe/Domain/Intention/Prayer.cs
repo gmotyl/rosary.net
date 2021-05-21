@@ -1,6 +1,6 @@
 using System;
 
-namespace OrareProMe.Domain
+namespace OrareProMe.Domain.Intention
 {
     public class Prayer
     {

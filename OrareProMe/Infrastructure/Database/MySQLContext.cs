@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrareProMe.Domain;
+using OrareProMe.Domain.Intention;
 
 namespace OrareProMe.Infrastructure.Database
 {
@@ -12,10 +13,10 @@ namespace OrareProMe.Infrastructure.Database
         private readonly string _connectionString;
         private readonly bool _useConsoleLogger;
 
-        public DbSet<Domain.Rosary> Rosaries { get; set; }
-        public DbSet<Domain.Intention> Intentions { get; set; }
-        public DbSet<Domain.User> Users { get; set; }
-        public DbSet<Domain.Prayer> Prayers { get; set; }
+        public DbSet<Rosary> Rosaries { get; set; }
+        public DbSet<IntentionAgregate> Intentions { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Prayer> Prayers { get; set; }
 
         public MysqlContext(string connectionString, bool useConsoleLogger)
         {
@@ -51,7 +52,7 @@ namespace OrareProMe.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Intention>()
+            modelBuilder.Entity<IntentionAgregate>()
                 .HasIndex(_ => _.ExternalId);
             modelBuilder.Entity<Rosary>()
                 .HasIndex(_ => _.ExternalId);
