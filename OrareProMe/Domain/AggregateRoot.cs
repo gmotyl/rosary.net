@@ -12,5 +12,10 @@ namespace OrareProMe.Domain
         {
             _domainEvents.Add(domainEvent);
         }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
+        }
     }
 }

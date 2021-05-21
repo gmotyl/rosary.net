@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using OrareProMe.Domain;
 
 namespace OrareProMe.Infrastructure.Database
 {
@@ -9,7 +10,11 @@ namespace OrareProMe.Infrastructure.Database
         {
             string connectionString = "Server=localhost;Port=3306;database=rosary;user=gomes;password=rosary";
 
-            return new MysqlContext(connectionString, true);
+            var bus = new Bus();
+            var messageBus = new MessageBus(bus);
+            var eventDispatcher = new EventDispatcher(messageBus);
+
+            return new MysqlContext(connectionString, true, eventDispatcher);
         }
     }
 }

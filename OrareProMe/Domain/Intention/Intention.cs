@@ -29,14 +29,19 @@ namespace OrareProMe.Domain
             {
                 this.Rosaries.Add(new Rosary());
             }
+
+            RaiseDomainEvent(new IntentionAdded(Id, title));
         }
 
-        public Prayer ReservePrayer()
+        public Prayer ReservePrayer(long userId)
         {
             var rosarySpec = new RosaryHasAviablePrayers();
             var rosary = Rosaries.First(rosarySpec.IsSatisfiedBy);
+            var prayer = rosary.NextPrayer();
 
-            return rosary.NextPrayer();
+            RaiseDomainEvent(new PrayerReserved(Id, rosary.Id, userId, prayer.Id));
+
+            return prayer;
         }
     }
 }

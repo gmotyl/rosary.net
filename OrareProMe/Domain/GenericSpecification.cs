@@ -16,6 +16,8 @@ namespace OrareProMe.Domain
         {
             return Expression.Compile().Invoke(entity);
         }
+
+
     }
 
 

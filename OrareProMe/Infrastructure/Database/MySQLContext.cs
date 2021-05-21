@@ -11,16 +11,18 @@ namespace OrareProMe.Infrastructure.Database
     {
         private readonly string _connectionString;
         private readonly bool _useConsoleLogger;
+        private readonly EventDispatcher _eventDispatcher;
 
         public DbSet<Rosary> Rosaries { get; set; }
         public DbSet<Intention> Intentions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Prayer> Prayers { get; set; }
 
-        public MysqlContext(string connectionString, bool useConsoleLogger)
+        public MysqlContext(string connectionString, bool useConsoleLogger, EventDispatcher eventDispatcher)
         {
             _connectionString = connectionString;
             _useConsoleLogger = useConsoleLogger;
+            _eventDispatcher = eventDispatcher;
         }
 
         protected MysqlContext()
@@ -61,5 +63,23 @@ namespace OrareProMe.Infrastructure.Database
                 .HasIndex(_ => _.ExternalId);
         }
 
+        public override int SaveChanges()
+        {
+
+            List<AggregateRoot> entities = ChangeTracker
+                .Entries()
+                .Where(x => x.Entity is AggregateRoot)
+                .Select(x => (AggregateRoot)x.Entity)
+                .ToList();
+
+            entities.ForEach(aggregate =>
+            {
+                _eventDispatcher.Dispatch(aggregate.DomainEvents);
+                aggregate.ClearDomainEvents();
+            });
+
+            return base.SaveChanges();
+        }
     }
+
 }
