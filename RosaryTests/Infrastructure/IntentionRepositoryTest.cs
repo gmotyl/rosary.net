@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using OrareProMe.Domain;
+using OrareProMe.Infrastructure.Database;
 using Xunit;
+
 
 namespace OrareProMe.Infrastructure
 {

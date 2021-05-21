@@ -1,11 +1,9 @@
 using System;
 
-namespace OrareProMe.Domain.Intention
+namespace OrareProMe.Domain
 {
-    public class Prayer
+    public class Prayer : Entity
     {
-        public long Id { get; set; }
-        public Guid ExternalId { get; set; }
         public virtual Rosary Rosary { get; set; }
 
         private DateTime Date { get; set; }

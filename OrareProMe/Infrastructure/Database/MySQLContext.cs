@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrareProMe.Domain;
-using OrareProMe.Domain.Intention;
 
 namespace OrareProMe.Infrastructure.Database
 {
@@ -14,7 +13,7 @@ namespace OrareProMe.Infrastructure.Database
         private readonly bool _useConsoleLogger;
 
         public DbSet<Rosary> Rosaries { get; set; }
-        public DbSet<IntentionAgregate> Intentions { get; set; }
+        public DbSet<Intention> Intentions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Prayer> Prayers { get; set; }
 
@@ -52,7 +51,7 @@ namespace OrareProMe.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IntentionAgregate>()
+            modelBuilder.Entity<Intention>()
                 .HasIndex(_ => _.ExternalId);
             modelBuilder.Entity<Rosary>()
                 .HasIndex(_ => _.ExternalId);

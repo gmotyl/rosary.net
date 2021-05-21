@@ -5,16 +5,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Microsoft.Net.Http.Headers;
-using OrareProMe.Domain.Specification;
 
-namespace OrareProMe.Domain.Intention
+namespace OrareProMe.Domain
 {
-    public class IntentionAgregate
+    public class Intention : AggregateRoot
     {
-
-        [Key]
-        public long Id { get; private set; }
-        public Guid ExternalId { get; private set; }
 
         public string Title { get; private set; }
 
@@ -24,11 +19,7 @@ namespace OrareProMe.Domain.Intention
 
         public virtual User Owner { get; private set; }
 
-        public IntentionAgregate()
-        {
-        }
-
-        public IntentionAgregate(string title, string description, User owner)
+        public Intention(string title, string description, User owner)
         {
             this.Title = title;
             this.Description = description;

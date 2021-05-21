@@ -2,17 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
-using OrareProMe.Domain.Intention;
 
-namespace OrareProMe.Domain.Intention
+namespace OrareProMe.Domain
 {
-    public class Rosary
+    public class Rosary : Entity
     {
-        [Key]
-        public long Id { get; set; }
-        public Guid ExternalId { get; set; }
-
-        public virtual IntentionAgregate Intention { get; set; }
+        public virtual Intention Intention { get; set; }
 
         public virtual List<Prayer> Prayers { get; set; }
 

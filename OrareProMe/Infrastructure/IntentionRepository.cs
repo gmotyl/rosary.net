@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OrareProMe.Domain;
-using OrareProMe.Domain.Intention;
 using OrareProMe.Infrastructure.Database;
 
 namespace OrareProMe.Infrastructure
@@ -19,14 +18,14 @@ namespace OrareProMe.Infrastructure
             _context = context;
         }
 
-        public void Add(IntentionAgregate intention)
+        public void Add(Intention intention)
         {
             // _context.Database.EnsureCreated();
             _context.Intentions.Add(intention);
             _context.SaveChanges();
         }
 
-        public IntentionAgregate GetById(Guid intentionId)
+        public Intention GetById(Guid intentionId)
         {
             return _context.Intentions.Find(intentionId);
         }

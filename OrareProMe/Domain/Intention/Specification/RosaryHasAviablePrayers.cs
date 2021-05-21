@@ -1,8 +1,7 @@
 using System;
 using System.Linq.Expressions;
-using OrareProMe.Domain.Intention;
 
-namespace OrareProMe.Domain.Specification
+namespace OrareProMe.Domain
 {
     public class RosaryHasAviablePrayers : Specification<Rosary>
     {
