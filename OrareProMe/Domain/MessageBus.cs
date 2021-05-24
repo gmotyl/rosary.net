@@ -28,19 +28,20 @@ namespace OrareProMe.Domain
             _bus = bus;
         }
 
-        public void SendIntentionAddedMessage(long intentionId, string title)
+        public void SendIntentionAddedMessage(long intentionId, string title, string description)
         {
             _bus.Send(
                 "Type: INTENTION_ADDED;" +
                 $"Id: {intentionId}" +
-                $"Title: {title}"
+                $"Title: {title}" +
+                $"Description: {description}"
             );
         }
 
         public void SendGeneralMessage(long entityId, string message)
         {
             _bus.Send(
-                "Type: Default handler for message;" +
+                "Type: DEFAULT_HANDLER;" +
                 $"entity Id: {entityId}" +
                 $"Messaage: {message}"
             );

@@ -4,10 +4,12 @@ namespace OrareProMe.Domain
     {
         public long IntentionId { get; }
         public string Title { get; }
-        public IntentionAdded(long intentionId, string title)
+        public string Description { get; }
+        public IntentionAdded(long intentionId, string title, string description)
         {
             IntentionId = intentionId;
             Title = title;
+            Description = description;
         }
     }
 }

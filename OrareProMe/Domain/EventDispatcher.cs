@@ -27,7 +27,11 @@ namespace OrareProMe.Domain
             switch (ev)
             {
                 case IntentionAdded intentionAdded:
-                    _messageBus.SendIntentionAddedMessage(intentionAdded.IntentionId, intentionAdded.Title);
+                    _messageBus.SendIntentionAddedMessage(
+                        intentionAdded.IntentionId,
+                        intentionAdded.Title,
+                        intentionAdded.Description
+                    );
                     break;
                 case PrayerReserved prayerReserved:
                     _messageBus.SendGeneralMessage(prayerReserved.IntentionId, "Prayer reserved");

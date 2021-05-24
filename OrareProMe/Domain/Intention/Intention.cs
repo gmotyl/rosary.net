@@ -30,7 +30,7 @@ namespace OrareProMe.Domain
                 this.Rosaries.Add(new Rosary());
             }
 
-            RaiseDomainEvent(new IntentionAdded(Id, title));
+            RaiseDomainEvent(new IntentionAdded(Id, title, description));
         }
 
         public Prayer ReservePrayer(long userId)
