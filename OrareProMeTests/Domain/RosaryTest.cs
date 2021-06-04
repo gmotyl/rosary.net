@@ -11,9 +11,9 @@ namespace OrareProMe.Domain
         {
             Rosary rosary = new Rosary();
 
-            rosary.FreePrayers.Count().Should().Be(20);
-            rosary.FinishedPrayers.Count().Should().Be(0);
-            rosary.LockedPrayers.Count().Should().Be(0);
+            rosary.FreeMysteries.Count().Should().Be(20);
+            rosary.FinishedMysteries.Count().Should().Be(0);
+            rosary.LockedMysteries.Count().Should().Be(0);
         }
 
         [Fact]
@@ -23,18 +23,18 @@ namespace OrareProMe.Domain
 
             rosary.NextMystery();
 
-            rosary.FreePrayers.Count().Should().Be(19);
-            rosary.FinishedPrayers.Count().Should().Be(0);
-            rosary.LockedPrayers.Count().Should().Be(1);
+            rosary.FreeMysteries.Count().Should().Be(19);
+            rosary.FinishedMysteries.Count().Should().Be(0);
+            rosary.LockedMysteries.Count().Should().Be(1);
 
             rosary.NextMystery();
             rosary.NextMystery();
             rosary.NextMystery();
             rosary.NextMystery();
 
-            rosary.FreePrayers.Count().Should().Be(15);
-            rosary.FinishedPrayers.Count().Should().Be(0);
-            rosary.LockedPrayers.Count().Should().Be(5);
+            rosary.FreeMysteries.Count().Should().Be(15);
+            rosary.FinishedMysteries.Count().Should().Be(0);
+            rosary.LockedMysteries.Count().Should().Be(5);
         }
 
         [Fact]
@@ -85,6 +85,7 @@ namespace OrareProMe.Domain
             rosary.NextMystery();
             rosary.NextMystery();
             rosary.NextMystery();
+
             Mystery mystery16 = rosary.NextMystery();
             rosary.NextMystery();
             rosary.NextMystery();
@@ -105,7 +106,7 @@ namespace OrareProMe.Domain
             mystery11.Should().Be(Mystery.Sorrowful1);
             mystery16.Should().Be(Mystery.Glorious1);
             mystery20.Should().Be(Mystery.Glorious5);
-            rosary.LockedPrayers.Count().Should().Be(20);
+            rosary.LockedMysteries.Count().Should().Be(20);
 
         }
 

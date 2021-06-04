@@ -8,32 +8,32 @@ namespace OrareProMe.Domain
 {
     public class Rosary : ValueObject<Rosary>
     {
-        public List<Mystery> FinishedPrayers { get; } = new List<Mystery>();
-        public List<Mystery> FreePrayers { get; } = new List<Mystery>();
-        public List<Mystery> LockedPrayers { get; } = new List<Mystery>();
+        public List<Mystery> FinishedMysteries { get; } = new List<Mystery>();
+        public List<Mystery> FreeMysteries { get; } = new List<Mystery>();
+        public List<Mystery> LockedMysteries { get; } = new List<Mystery>();
 
         public Rosary()
         {
             foreach (Mystery mystery in (Mystery[])Enum.GetValues(typeof(Mystery)))
             {
-                FreePrayers.Add(mystery);
+                FreeMysteries.Add(mystery);
             }
         }
 
         public Mystery NextMystery()
         {
-            var prayer = FreePrayers.ElementAt(0);
-            FreePrayers.RemoveAt(0);
-            LockedPrayers.Add(prayer);
+            var mystery = FreeMysteries.ElementAt(0);
+            FreeMysteries.RemoveAt(0);
+            LockedMysteries.Add(mystery);
 
-            return prayer;
+            return mystery;
         }
 
         protected override bool EqualsCore(Rosary other)
         {
-            return FinishedPrayers.SequenceEqual(other.FinishedPrayers)
-                && FreePrayers.SequenceEqual(other.FreePrayers)
-                && LockedPrayers.SequenceEqual(other.LockedPrayers);
+            return FinishedMysteries.SequenceEqual(other.FinishedMysteries)
+                && FreeMysteries.SequenceEqual(other.FreeMysteries)
+                && LockedMysteries.SequenceEqual(other.LockedMysteries);
         }
     }
 }
