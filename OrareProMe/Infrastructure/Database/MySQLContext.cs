@@ -55,8 +55,8 @@ namespace OrareProMe.Infrastructure.Database
         {
             modelBuilder.Entity<Intention>()
                 .HasIndex(_ => _.ExternalId);
-            modelBuilder.Entity<Rosary>()
-                .HasIndex(_ => _.ExternalId);
+            // modelBuilder.Entity<Rosary>()
+            //     .HasIndex(_ => _.ExternalId);
             modelBuilder.Entity<Prayer>()
                 .HasIndex(_ => _.ExternalId);
             modelBuilder.Entity<User>()

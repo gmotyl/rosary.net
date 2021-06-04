@@ -37,9 +37,10 @@ namespace OrareProMe.Domain
         {
             var rosarySpec = new RosaryHasAviablePrayers();
             var rosary = Rosaries.First(rosarySpec.IsSatisfiedBy);
-            var prayer = rosary.NextPrayer();
+            var mystery = rosary.NextMystery();
+            Prayer prayer = new Prayer();
 
-            RaiseDomainEvent(new PrayerReserved(Id, rosary.Id, userId, prayer.Id));
+            RaiseDomainEvent(new PrayerReserved(Id, mystery, userId, prayer.Id));
 
             return prayer;
         }

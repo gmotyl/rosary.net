@@ -8,7 +8,7 @@ namespace OrareProMe.Domain
 
         public override Expression<Func<Rosary, bool>> ToExpression()
         {
-            return rosary => rosary.Prayers.Count < 20;
+            return rosary => rosary.FreePrayers.Count > 0;
         }
 
     }

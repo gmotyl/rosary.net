@@ -4,7 +4,6 @@ namespace OrareProMe.Domain
         where T : ValueObject<T>
     {
         protected abstract bool EqualsCore(T other);
-        protected abstract int GetHashCodeCore();
 
         public override bool Equals(object obj)
         {
@@ -16,12 +15,7 @@ namespace OrareProMe.Domain
             return EqualsCore(valueObject);
         }
 
-        public override int GetHashCode()
-        {
-            return GetHashCodeCore();
-        }
-
-        public static bool operator ==(Entity a, Entity b)
+        public static bool operator ==(ValueObject<T> a, ValueObject<T> b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
                 return true;
@@ -32,7 +26,7 @@ namespace OrareProMe.Domain
             return a.Equals(b);
         }
 
-        public static bool operator !=(Entity a, Entity b)
+        public static bool operator !=(ValueObject<T> a, ValueObject<T> b)
         {
             return !(a == b);
         }
