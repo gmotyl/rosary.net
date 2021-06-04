@@ -44,14 +44,15 @@ namespace OrareProMe.Domain
             {
                 Rosary nextRosary = new Rosary();
                 this.Rosaries.Add(nextRosary);
-                prayer = new Prayer(nextRosary, nextRosary.NextMystery());
+                Mystery nextMystery = nextRosary.NextMystery();
+                prayer = new Prayer(nextRosary, nextMystery);
+                RaiseDomainEvent(new PrayerReserved(Id, nextMystery, userId, prayer.Id));
             }
             else
             {
                 prayer = new Prayer(rosary, mystery);
+                RaiseDomainEvent(new PrayerReserved(Id, mystery, userId, prayer.Id));
             }
-
-            RaiseDomainEvent(new PrayerReserved(Id, mystery, userId, prayer.Id));
 
             return prayer;
         }
