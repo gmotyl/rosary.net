@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace OrareProMe.Domain
 {
-    public class Rosary : ValueObject<Rosary>
+    public class Rosary : AggregateRoot
     {
         public List<Mystery> FinishedMysteries { get; } = new List<Mystery>();
         public List<Mystery> FreeMysteries { get; } = new List<Mystery>();
@@ -27,13 +27,6 @@ namespace OrareProMe.Domain
             LockedMysteries.Add(mystery);
 
             return mystery;
-        }
-
-        protected override bool EqualsCore(Rosary other)
-        {
-            return FinishedMysteries.SequenceEqual(other.FinishedMysteries)
-                && FreeMysteries.SequenceEqual(other.FreeMysteries)
-                && LockedMysteries.SequenceEqual(other.LockedMysteries);
         }
     }
 }

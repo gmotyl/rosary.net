@@ -38,7 +38,7 @@ namespace OrareProMe.Domain
         }
 
         [Fact]
-        public void Two_rosaries_equal_if_they_have_the_same_pray_sequence()
+        public void Two_rosaries_not_equal_even_if_they_have_the_same_pray_sequence()
         {
             Rosary rosary1 = new Rosary();
             Rosary rosary2 = new Rosary();
@@ -48,7 +48,7 @@ namespace OrareProMe.Domain
             rosary2.NextMystery();
             rosary2.NextMystery();
 
-            rosary1.Should().Be(rosary2);
+            rosary1.Should().NotBe(rosary2);
         }
 
         [Fact]
