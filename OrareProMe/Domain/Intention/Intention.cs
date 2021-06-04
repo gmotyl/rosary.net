@@ -35,10 +35,21 @@ namespace OrareProMe.Domain
 
         public Prayer ReservePrayer(long userId)
         {
+            Prayer prayer;
             var rosarySpec = new RosaryHasAviablePrayers();
             var rosary = Rosaries.First(rosarySpec.IsSatisfiedBy);
             var mystery = rosary.NextMystery();
-            Prayer prayer = new Prayer();
+
+            if (Mystery.Empty == mystery)
+            {
+                Rosary nextRosary = new Rosary();
+                this.Rosaries.Add(nextRosary);
+                prayer = new Prayer(nextRosary, nextRosary.NextMystery());
+            }
+            else
+            {
+                prayer = new Prayer(rosary, mystery);
+            }
 
             RaiseDomainEvent(new PrayerReserved(Id, mystery, userId, prayer.Id));
 

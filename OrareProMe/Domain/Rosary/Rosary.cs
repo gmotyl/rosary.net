@@ -23,8 +23,12 @@ namespace OrareProMe.Domain
         public Mystery NextMystery()
         {
             var mystery = FreeMysteries.ElementAt(0);
-            FreeMysteries.RemoveAt(0);
-            LockedMysteries.Add(mystery);
+
+            if (mystery != Mystery.Empty)
+            {
+                FreeMysteries.RemoveAt(0);
+                LockedMysteries.Add(mystery);
+            }
 
             return mystery;
         }

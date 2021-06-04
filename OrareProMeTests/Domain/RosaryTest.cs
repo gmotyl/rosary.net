@@ -7,11 +7,11 @@ namespace OrareProMe.Domain
     public class RosaryTest
     {
         [Fact]
-        public void New_Rosary_Has_20_Free_Mysteries()
+        public void New_Rosary_Has_21_Free_Mysteries()
         {
             Rosary rosary = new Rosary();
 
-            rosary.FreeMysteries.Count().Should().Be(20);
+            rosary.FreeMysteries.Count().Should().Be(21);
             rosary.FinishedMysteries.Count().Should().Be(0);
             rosary.LockedMysteries.Count().Should().Be(0);
         }
@@ -23,7 +23,7 @@ namespace OrareProMe.Domain
 
             rosary.NextMystery();
 
-            rosary.FreeMysteries.Count().Should().Be(19);
+            rosary.FreeMysteries.Count().Should().Be(20);
             rosary.FinishedMysteries.Count().Should().Be(0);
             rosary.LockedMysteries.Count().Should().Be(1);
 
@@ -32,7 +32,7 @@ namespace OrareProMe.Domain
             rosary.NextMystery();
             rosary.NextMystery();
 
-            rosary.FreeMysteries.Count().Should().Be(15);
+            rosary.FreeMysteries.Count().Should().Be(16);
             rosary.FinishedMysteries.Count().Should().Be(0);
             rosary.LockedMysteries.Count().Should().Be(5);
         }
@@ -109,7 +109,6 @@ namespace OrareProMe.Domain
             rosary.LockedMysteries.Count().Should().Be(20);
 
         }
-
 
     }
 }

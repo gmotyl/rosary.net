@@ -22,5 +22,6 @@ namespace OrareProMe.Domain
         Glorious3,
         Glorious4,
         Glorious5,
+        Empty,
     }
 }
