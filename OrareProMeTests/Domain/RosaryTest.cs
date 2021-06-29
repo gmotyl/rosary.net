@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using FluentAssertions;
 using Xunit;
@@ -108,6 +109,30 @@ namespace OrareProMe.Domain
             mystery20.Should().Be(Mystery.Glorious5);
             rosary.LockedMysteries.Count().Should().Be(20);
 
+        }
+
+        [Fact]
+        public void NextMystery_Returns_expired_mystery()
+        {
+            int numberOfCalls = 0;
+
+            Func<DateTime> mockedTime = () => {
+                if (++numberOfCalls > 1)
+                    return DateTime.UtcNow.AddMinutes(15); // current time
+                else
+                    return DateTime.UtcNow; // lock time
+            };
+
+            Rosary rosary = new Rosary();
+
+            Mystery mystery01 = rosary.NextMystery(); // Joyful1
+            Mystery mystery02 = rosary.NextMystery(); // Joyful2
+            Mystery mystery1 = rosary.NextMystery(mockedTime); // Joyful3 expire...
+            Mystery mystery2 = rosary.NextMystery(mockedTime); // Joyful3
+            Mystery mystery3 = rosary.NextMystery(mockedTime); // Joyful4
+
+            mystery2.Should().Be(mystery1);
+            mystery3.Should().Be(Mystery.Joyful4);
         }
 
     }

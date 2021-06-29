@@ -10,7 +10,7 @@ namespace OrareProMe.Domain
     {
         public List<Mystery> FinishedMysteries { get; } = new List<Mystery>();
         public List<Mystery> FreeMysteries { get; } = new List<Mystery>();
-        public List<Mystery> LockedMysteries { get; } = new List<Mystery>();
+        public List<LockedMystery> LockedMysteries { get; } = new List<LockedMystery>();
 
         public Rosary()
         {
@@ -20,17 +20,38 @@ namespace OrareProMe.Domain
             }
         }
 
+        public Mystery NextMystery(Func<DateTime> utcTimeNow)
+        {
+            return _getNextMystery((m) => new LockedMystery(m, utcTimeNow));
+        }
+
         public Mystery NextMystery()
+        {
+            return _getNextMystery((m) => new LockedMystery(m));
+        }
+
+        private Mystery _getNextMystery(Func<Mystery, LockedMystery> lockMystery)
         {
             var mystery = FreeMysteries.ElementAt(0);
 
+            foreach (var lMystery in LockedMysteries)
+            {
+                if (!lMystery.IsLocked()) {
+                    mystery = lMystery.Mystery;
+                    LockedMysteries.Remove(lMystery);
+                    break;
+                }
+            }
+
             if (mystery != Mystery.Empty)
             {
-                FreeMysteries.RemoveAt(0);
-                LockedMysteries.Add(mystery);
+                FreeMysteries.Remove(mystery);
+                LockedMysteries.Add(lockMystery(mystery));
             }
 
             return mystery;
         }
+
+
     }
 }

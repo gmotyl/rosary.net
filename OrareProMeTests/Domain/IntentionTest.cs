@@ -38,7 +38,6 @@ namespace OrareProMe.Domain
                 prayer.Rosary.Should().Be(firstPrayer.Rosary);
             }
             nextRosaryPrayer.Rosary.Should().NotBe(firstPrayer.Rosary);
-
         }
     }
 }
