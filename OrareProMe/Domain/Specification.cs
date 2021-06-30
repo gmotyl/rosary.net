@@ -62,7 +62,8 @@ namespace OrareProMe.Domain
             var leftExpression = _left.ToExpression();
             var rightExpression = _right.ToExpression();
 
-            BinaryExpression andExpression = Expression.AndAlso(leftExpression.Body, rightExpression.Body);
+            var invokedExpr = Expression.Invoke(rightExpression, leftExpression.Parameters);
+            BinaryExpression andExpression = Expression.AndAlso(leftExpression.Body, invokedExpr);
 
             return Expression.Lambda<Func<T, bool>>(andExpression, leftExpression.Parameters.Single());
         }
@@ -84,7 +85,8 @@ namespace OrareProMe.Domain
             var leftExpression = _left.ToExpression();
             var rightExpression = _right.ToExpression();
 
-            BinaryExpression orExpression = Expression.OrElse(leftExpression.Body, rightExpression.Body);
+            var invokedExpr = Expression.Invoke(rightExpression, leftExpression.Parameters);
+            var orExpression = Expression.OrElse(leftExpression.Body, invokedExpr);
 
             return Expression.Lambda<Func<T, bool>>(orExpression, leftExpression.Parameters.Single());
         }

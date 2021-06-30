@@ -18,6 +18,14 @@ namespace OrareProMe.Domain
             {
                 FreeMysteries.Add(mystery);
             }
+            LockedMysteries.Add(new LockedMystery(Mystery.Empty));
+        }
+
+        public void Finish(Mystery mystery)
+        {
+            FinishedMysteries.Add(mystery);
+            FreeMysteries.Remove(mystery);
+            LockedMysteries.RemoveAll(lm => lm.Mystery == mystery);
         }
 
         public Mystery NextMystery(Func<DateTime> utcTimeNow)

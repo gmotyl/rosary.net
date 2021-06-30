@@ -14,7 +14,7 @@ namespace OrareProMe.Domain
 
             rosary.FreeMysteries.Count().Should().Be(21);
             rosary.FinishedMysteries.Count().Should().Be(0);
-            rosary.LockedMysteries.Count().Should().Be(0);
+            rosary.LockedMysteries.Count().Should().Be(1); // Empty Mystery
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace OrareProMe.Domain
 
             rosary.FreeMysteries.Count().Should().Be(20);
             rosary.FinishedMysteries.Count().Should().Be(0);
-            rosary.LockedMysteries.Count().Should().Be(1);
+            rosary.LockedMysteries.Count().Should().Be(2); // Empty Mystery + 1
 
             rosary.NextMystery();
             rosary.NextMystery();
@@ -35,7 +35,7 @@ namespace OrareProMe.Domain
 
             rosary.FreeMysteries.Count().Should().Be(16);
             rosary.FinishedMysteries.Count().Should().Be(0);
-            rosary.LockedMysteries.Count().Should().Be(5);
+            rosary.LockedMysteries.Count().Should().Be(6);
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace OrareProMe.Domain
             mystery11.Should().Be(Mystery.Sorrowful1);
             mystery16.Should().Be(Mystery.Glorious1);
             mystery20.Should().Be(Mystery.Glorious5);
-            rosary.LockedMysteries.Count().Should().Be(20);
+            rosary.LockedMysteries.Count().Should().Be(21);
 
         }
 

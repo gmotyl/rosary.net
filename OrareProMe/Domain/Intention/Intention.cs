@@ -33,18 +33,30 @@ namespace OrareProMe.Domain
             RaiseDomainEvent(new IntentionAdded(Id, title, description));
         }
 
+        public Prayer ReservePrayer(long userId, Func<DateTime> utcTimeNow)
+        {
+            return _getReservedPrayer(userId, (Rosary rosary) => rosary.NextMystery(utcTimeNow));
+        }
+
         public Prayer ReservePrayer(long userId)
         {
+            return _getReservedPrayer(userId, (Rosary rosary) => rosary.NextMystery());
+        }
+
+        private Prayer _getReservedPrayer(long userId, Func<Rosary, Mystery> getNextMystery)
+        {
             Prayer prayer;
-            var rosarySpec = new RosaryHasAviablePrayers();
+            var hasFreeMystery = new RosaryHasAviablePrayers();
+            var hasExpiredMystery = new RosaryHasExpiredMysteries();
+            var rosarySpec = hasFreeMystery.Or(hasExpiredMystery);
             var rosary = Rosaries.First(rosarySpec.IsSatisfiedBy);
-            var mystery = rosary.NextMystery();
+            var mystery = getNextMystery(rosary);
 
             if (Mystery.Empty == mystery)
             {
                 Rosary nextRosary = new Rosary();
                 this.Rosaries.Add(nextRosary);
-                Mystery nextMystery = nextRosary.NextMystery();
+                Mystery nextMystery = getNextMystery(nextRosary);
                 prayer = new Prayer(nextRosary, nextMystery);
                 RaiseDomainEvent(new PrayerReserved(Id, nextMystery, userId, prayer.Id));
             }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -38,6 +40,37 @@ namespace OrareProMe.Domain
                 prayer.Rosary.Should().Be(firstPrayer.Rosary);
             }
             nextRosaryPrayer.Rosary.Should().NotBe(firstPrayer.Rosary);
+        }
+
+        [Fact]
+        public void Reserves_expired_mystery_first()
+        {
+            var user = new User();
+            var intention = new Intention("test", "test", user);
+            Rosary rosary = intention.Rosaries.First();
+
+            foreach (var m in Enum.GetValues(typeof(Mystery)).Cast<Mystery>())
+            {
+                if (m != Mystery.Luminous1 && m != Mystery.Empty) {
+                    rosary.Finish(m);
+                }
+            }
+
+            int numberOfCalls = 0;
+
+            Func<DateTime> mockedTime = () => {
+                if (++numberOfCalls > 1)
+                    return DateTime.UtcNow.AddMinutes(12); // current time
+                else
+                    return DateTime.UtcNow; // lock time
+            };            
+
+            var expiredPrayer = intention.ReservePrayer(user.Id, mockedTime);
+            var nextPrayer = intention.ReservePrayer(user.Id);
+
+            expiredPrayer.Mystery.Should().Be(Mystery.Luminous1);
+            nextPrayer.Mystery.Should().Be(Mystery.Luminous1);
+
         }
     }
 }
